@@ -106,11 +106,11 @@ function RedisConnectionPool(uid, cfg) {
 
   setTimeout(function poolStats(pool) {
     // periodically report pool statistics
-    debug('REDIS POOL: [size: ' + pool.getPoolSize() +
+    console.log('REDIS POOL: [size: ' + pool.getPoolSize() +
                 ' avail:' + pool.availableObjectsCount() +
                 ' waiting:' + pool.waitingClientsCount() + ']');
-    setTimeout(poolStats, 300000, pool);
-  }, 300000, this.pool);
+    setTimeout(poolStats, 60000, pool);
+  }, 60000, this.pool);
 
   return this;
 }
@@ -165,6 +165,64 @@ RedisConnectionPool.prototype.serverInfo = function (cb) {
  */
 RedisConnectionPool.prototype.expire = function (key, data, cb) {
   redisSingle.apply(this, ['expire', key, data, cb]);
+};
+
+/**
+ * Function: keys
+ *
+ * Execute a redis keys command
+ *
+ * Parameters:
+ *
+ *   pattern   - (string) - pattern to search for
+ *
+ */
+RedisConnectionPool.prototype.keys = function (pattern, cb) {
+  redisSingle.apply(this, ['keys', pattern, cb]);
+};
+
+
+/**
+ * Function: hkeys
+ *
+ * Execute a redis hkeys command
+ *
+ * Parameters:
+ *
+ *   key   - (string) - hash key
+ *
+ */
+RedisConnectionPool.prototype.hkeys = function (key, cb) {
+  redisSingle.apply(this, ['hkeys', key, cb]);
+};
+
+
+/**
+ * Function: exists
+ *
+ * Execute a redis exists command
+ *
+ * Parameters:
+ *
+ *   key   - (string) - key to search for
+ *
+ */
+RedisConnectionPool.prototype.exists = function (key, cb) {
+  redisSingle.apply(this, ['exists', key, cb]);
+};
+
+/**
+ * Function: hexists
+ *
+ * Execute a redis hexists command
+ *
+ * Parameters:
+ *
+ *   key   - (string) - key to search for
+ *
+ */
+RedisConnectionPool.prototype.hexists = function (key, field, cb) {
+  redisSingle.apply(this, ['hexists', key, field, cb]);
 };
 
 /**
