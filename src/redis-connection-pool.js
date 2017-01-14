@@ -44,7 +44,7 @@ var redis     = require('redis'),
  *   cfg.port - (number) - Redis port (default: 6379)
  *
  *   cfg.max_clients - (number) - Max clients alive in the connection pool at
- *                                once. (default: 30)
+ *                                once. (default: 100)
  *
  *   cfg.perform_checks - (boolean) - Perform a series of redis checks,
  *                                    currently this checks to to see if
@@ -62,7 +62,7 @@ function RedisConnectionPool(uid, cfg) {
   this.uid            = (typeof uid ==='string') ? uid : 'redis-connection-pool-' + Math.floor((Math.random() * 99999) + 10000);
   this.host           = (typeof cfg.host === 'string') ? cfg.host : '127.0.0.1';
   this.port           = (typeof cfg.port === 'number') ? cfg.port : 6379;
-  this.max_clients    = (typeof cfg.max_clients === 'number') ? cfg.max_clients : 30;
+  this.max_clients    = (typeof cfg.max_clients === 'number') ? cfg.max_clients : 100;
   this.perform_checks = (typeof cfg.perform_checks === 'boolean') ? cfg.perform_checks : false;
   this.options        = (typeof cfg.options === 'object') ? cfg.options : null;
   this.database       = (typeof cfg.database === 'number') ? cfg.database : 0;
